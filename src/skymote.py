@@ -284,7 +284,7 @@ class Mote(object):
         if name[1] == 3:
             # Old style string
             name = "My %s" % self.productName
-            print "Old UTF-16 name detected, replacing with %s" % name
+            print("Old UTF-16 name detected, replacing with %s" % name)
             self.setName(name)
             name = name.decode("UTF-8")
         else:
@@ -293,7 +293,7 @@ class Mote(object):
                 name = struct.pack("B"*end, *name[:end]).decode("UTF-8")
             except ValueError:
                 name = "My %s" % self.productName
-                print "Improperly formatted name detected, replacing with %s" % name
+                print("Improperly formatted name detected, replacing with %s" % name)
                 self.setName(name)
                 name = name.decode("UTF-8")
         

@@ -75,8 +75,8 @@ def readHoldingRegistersResponse(packet, payloadFormat=None):
     #  0  1  2    3  4  5  6+
     HEADER_LENGTH = 9
     header = struct.unpack('>HHHBBB', packet[:HEADER_LENGTH])
-    #print "header", [ c for c in header ]
-    #print "header", header
+    #print("header", [ c for c in header ])
+    #print("header", header)
     
     # Check that protocol ID is 0
     if header[1] != 0:
@@ -96,8 +96,8 @@ def readHoldingRegistersResponse(packet, payloadFormat=None):
     #Check for proper length
     payloadLength = header[5]
     if (payloadLength + HEADER_LENGTH) != len(packet):
-        #print "packet length is", len(packet)
-        #print "payload and header is", payloadLength + HEADER_LENGTH
+        #print("packet length is", len(packet))
+        #print("payload and header is", payloadLength + HEADER_LENGTH)
         raise ModbusException("Packet length not valid. Expected %s, Got %s\n\nThe packet you received: %s" % (payloadLength + HEADER_LENGTH, len(packet), repr(packet)))
 
     if payloadFormat is None:
@@ -108,10 +108,10 @@ def readHoldingRegistersResponse(packet, payloadFormat=None):
     if payloadFormat == '>s': 
        payloadFormat = '>' + 's' *  payloadLength
 
-    #print "Info: "
-    #print payloadFormat
-    #print type(packet)
-    #print [ ord(c) for c in packet ]
+    #print("Info: ")
+    #print(payloadFormat)
+    #print(type(packet))
+    #print([ ord(c) for c in packet ])
     
     # Mike C.: unpack_from new in 2.5.  Won't work on Joyent.
     # payload = struct.unpack_from(payloadFormat, packet, offset = HEADER_LENGTH)
@@ -127,8 +127,8 @@ def readInputRegistersRequest(addr, numReg = None):
         numReg = calcNumberOfRegisters(addr)
     
     packet = _buildHeaderBytes() + struct.pack('>BHH', 0x04, addr, numReg)
-    #print "making readHoldingRegistersRequest packet"
-    #print [ ord(c) for c in packet ]
+    #print("making readHoldingRegistersRequest packet")
+    #print([ ord(c) for c in packet ])
     return packet
 
 def readInputRegistersResponse(packet, payloadFormat=None):
@@ -138,8 +138,8 @@ def readInputRegistersResponse(packet, payloadFormat=None):
     #  0  1  2    3  4  5  6+
     HEADER_LENGTH = 9
     header = struct.unpack('>HHHBBB', packet[:HEADER_LENGTH])
-    #print "header", [ c for c in header ]
-    #print "header", header
+    #print("header", [ c for c in header ])
+    #print("header", header)
     
     # Check for valid Trans ID
     _checkTransId(header[0])
@@ -155,8 +155,8 @@ def readInputRegistersResponse(packet, payloadFormat=None):
     #Check for proper length
     payloadLength = header[5]
     if (payloadLength + HEADER_LENGTH) != len(packet):
-        #print "packet length is", len(packet)
-        #print "payload and header is", payloadLength + HEADER_LENGTH
+        #print("packet length is", len(packet))
+        #print("payload and header is", payloadLength + HEADER_LENGTH)
         raise ModbusException("Packet length not valid.")
 
     if payloadFormat is None:
@@ -167,8 +167,8 @@ def readInputRegistersResponse(packet, payloadFormat=None):
     if payloadFormat == '>s': 
        payloadFormat = '>' + 's' *  payloadLength
 
-    #print payloadFormat
-    #print [ ord(c) for c in packet ]
+    #print(payloadFormat)
+    #print([ ord(c) for c in packet ])
     
     # Mike C.: unpack_from new in 2.5.  Won't work on Joyent.
     # payload = struct.unpack_from(payloadFormat, packet, offset = HEADER_LENGTH)

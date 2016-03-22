@@ -178,7 +178,7 @@ class U6(Device):
     Example:
     >>> import u6
     >>> d = u6.U6()
-    >>> print d.configU6()
+    >>> print(d.configU6())
     {'SerialNumber': 320032102, ... , 'FirmwareVersion': '1.26'}
     """
     def __init__(self, debug = False, autoOpen = True, **kargs):
@@ -266,7 +266,7 @@ class U6(Device):
         except LabJackException:
             e = sys.exc_info()[1]
             if e.errorCode is 4:
-                print "NOTE: ConfigU6 returned an error of 4. This probably means you are using U6 with a *really old* firmware. Please upgrade your U6's firmware as soon as possible."
+                print("NOTE: ConfigU6 returned an error of 4. This probably means you are using U6 with a *really old* firmware. Please upgrade your U6's firmware as soon as possible.")
                 result = self._writeRead(command, 38, [0xF8, 0x10, 0x08], checkBytes = False)
             else:
                 raise e
@@ -701,7 +701,7 @@ class U6(Device):
               calibrations.
               
         >>> reading = d.streamData(convert = False)
-        >>> print proccessStreamData(reading['result'])
+        >>> print(proccessStreamData(reading['result']))
         defaultDict(list, {'AIN0' : [3.123, 3.231, 3.232, ...]})
         """
         if numBytes is None:
@@ -1108,7 +1108,7 @@ class U6(Device):
         <ainDiffOffset: -2.46886488446,...>
         """
         if self.debug is True:
-            print "Calibration data retrieval"
+            print("Calibration data retrieval")
         
         self.calInfo.nominal = False
         
@@ -1358,7 +1358,7 @@ class U6(Device):
         Example:
         >>> import u6
         >>> d = u6.U6()
-        >>> print d.getDIState(0)
+        >>> print(d.getDIState(0))
         1
         """
         return self.getFeedback(BitDirWrite(ioNum, 0), BitStateRead(ioNum))[1]
@@ -1377,7 +1377,7 @@ class U6(Device):
         Example:
         >>> import u6
         >>> d = u6.U6()
-        >>> print d.getDIOState(0)
+        >>> print(d.getDIOState(0))
         1
         """
         return self.getFeedback(BitStateRead(ioNum))[0]
