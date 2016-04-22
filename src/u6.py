@@ -660,8 +660,12 @@ class U6(Device):
         if DivideClockBy256:
             command[11] |= 1 << 1
         t = struct.pack("<H", ScanInterval)
-        command[12] = ord(t[0])
-        command[13] = ord(t[1])
+        if sys.version_info[0] > 2:
+            command[12] = t[0]
+            command[13] = t[1]
+        else:
+            command[12] = ord(t[0])
+            command[13] = ord(t[1])
         for i in range(NumChannels):
             command[14+(i*2)] = ChannelNumbers[i]
             command[15+(i*2)] = ChannelOptions[i]
@@ -761,8 +765,12 @@ class U6(Device):
             command[7] |= (1 << 4)
         
         t = struct.pack("<H", TimeoutPeriod)
-        command[8] = ord(t[0])
-        command[9] = ord(t[1])
+        if sys.version_info[0] > 2:
+            command[8] = t[0]
+            command[9] = t[1]
+        else:
+            command[8] = ord(t[0])
+            command[9] = ord(t[1])
         command[10] = ((DIOState & 1 ) << 7)
         command[10] |= (DIONumber & 0xf)
         
@@ -913,8 +921,12 @@ class U6(Device):
             BaudFactor = (2**16) - 48000000/(2 * DesiredBaud)   
         
         t = struct.pack("<H", BaudFactor)
-        command[8] = ord(t[0])
-        command[9] = ord(t[1])
+        if sys.version_info[0] > 2:
+            command[8] = t[0]
+            command[9] = t[1]
+        else:
+            command[8] = ord(t[0])
+            command[9] = ord(t[1])
         
         results = self._writeRead(command, 10, [0xF8, 0x02, 0x14])
             

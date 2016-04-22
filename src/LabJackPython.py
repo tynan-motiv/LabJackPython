@@ -752,7 +752,10 @@ class Device(object):
         HEADER_SIZE = 12
         FOOTER_SIZE = 2
         BYTES_PER_PACKET = 2
-        l = str(packet)
+        if sys.version_info[0] > 2:
+            l = packet
+        else:
+            l = str(packet)
         l = l[HEADER_SIZE:]
         l = l[:-FOOTER_SIZE]
         while len(l) > 0:
@@ -821,9 +824,15 @@ class Device(object):
 
             errors = 0
             missed = 0
-            firstPacket = ord(result[10])
+            if sys.version_info[0] > 2:
+                firstPacket = result[10]
+            else:
+                firstPacket = ord(result[10])
             for i in range(numPackets):
-                e = ord(result[11+(i*numBytes)])
+                if sys.version_info[0] > 2:
+                    e = result[11+(i*numBytes)]
+                else:
+                    e = ord(result[11+(i*numBytes)])
                 if e != 0:
                     errors += 1
                     if self.debug and e != 60 and e != 59: print(e)

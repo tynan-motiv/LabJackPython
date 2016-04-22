@@ -3,8 +3,8 @@ examples for the LabJack U3, U6, UE9 and U12.
 05/26/2015
 support@labjack.com
 
-Python 2.5 or higher is required to use LabJackPython. Python 3.x is not
-supported.
+Python 2.6 or higher is required to use LabJackPython. Python 3.x is in
+progress.
 
 To use Modbus first check that your LabJack device meets the minimum required
 firmware version listed on this page:
